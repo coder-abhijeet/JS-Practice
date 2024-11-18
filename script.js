@@ -1,29 +1,31 @@
-const my_checkbox = document.getElementById("my_checkbox")
-const visa_button = document.getElementById("visa_button")
-const master_card = document.getElementById("master_card")
-const paypal = document.getElementById("paypal")
-const submit_btn = document.getElementById("submit_btn")
-const sub_result = document.getElementById("p1")
-const pay_result = document.getElementById("p2")
+const minNum=1;
+const maxNum=100;
+const answer=Math.floor(Math.random()*maxNum-minNum+1)+minNum;
 
-submit_btn.onclick=function(){
-    if (my_checkbox.checked){
-        sub_result.textContent=`You are Subscribed!`;
+let guess;
+let attempts=0;
+let running=true;
+
+while(running){
+    guess=window.prompt(`Guess a number between ${minNum}-${maxNum}`);
+    guess=Number(guess);
+    if(isNaN(guess)){
+        window.alert("Enter a valid number.");
+    }
+    else if (guess<minNum || guess>maxNum){
+        window.alert(`Enter the number between ${minNum} and ${maxNum}`);
     }
     else {
-        sub_result.textContent=`You are NOT subscribed.`;
-    }
-
-    if (visa_button.checked){
-        pay_result.textContent=`You selected VISA.`
-    }
-    else if (master_card.checked){
-        pay_result.textContent=`You selected MasteCard.`
-    }
-    else if (paypal.checked){
-        pay_result.textContent=`You selected PayPal.`
-    }
-    else {
-        pay_result.textContent=`Oops! You forgot to select payment options.`
+        attempts++
+        if (guess<answer){
+            window.alert(`TOO LOW! Try Again`);
+        }
+        else if (guess>answer){
+            window.alert(`TOO HIGH! Try Again`);
+        }
+        else {
+            window.alert(`CORRECT! The answer was ${answer}. It took you ${attempts} attempts.`);
+            break;
+        }
     }
 }
